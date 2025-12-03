@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SHADOW SYSTEM - PURE</title>
+    <title>SHADOW SYSTEM - NEW ERA</title>
     
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#001f3f">
@@ -84,7 +84,7 @@
         .gym-list input { margin-right: 10px; transform: scale(1.3); }
         .progress-text { font-family: monospace; color: #888; font-size: 1rem; }
 
-        /* BMI SECTION */
+        /* BMI SECTION - MANUAL ONLY */
         .bmi-box {
             background: rgba(0,0,0,0.4); padding: 12px; border-radius: 5px; margin-bottom: 10px; border: 1px solid #333;
             display: flex; flex-direction: column; gap: 10px;
@@ -233,7 +233,7 @@
     // DATA CONSTANTS
     const ranks = [{day:0,title:"Kẻ Vô Danh"},{day:3,title:"[F] Kẻ Mới Thức Tỉnh"},{day:7,title:"[E] Tân Binh"},{day:10,title:"[E+] Người Gác Cổng"},{day:14,title:"[D] Chiến Binh"},{day:17,title:"[D+] Phá Xiềng"},{day:21,title:"[C] Kiến Trúc Sư"},{day:24,title:"[C+] Nhịp Điệu"},{day:28,title:"[B] Hiệp Sĩ"},{day:33,title:"[B+] Tiềm Năng"},{day:35,title:"[A] Thợ Săn"},{day:42,title:"[S] Đạo Sư"},{day:100,title:"[EX] Thần Chủ"}];
     
-    // UPDATED MILESTONES AS REQUESTED
+    // DANH SÁCH PHẦN THƯỞNG (ĐÃ CÓ TRONG CODE)
     const milestones = {
         3: "1 trận LoL 🎮",
         7: "Cheat Meal 🍔",
@@ -249,7 +249,8 @@
     const dailyPool = ["Chơi NBA","Chơi bida","Hát Karaoke","Ngủ trưa","Dạo quanh thành phố","1 bịch bánh","Vẽ","Lướt FB 30p","Ôm người thân","Làm Web tặng người thân","Giải rubik","Chơi cờ vua","Mua sách","Làm Sinh tố","Xem anime","Xem movie","Ăn cheat thêm","Nghe nhạc 1h","Chơi LoL","Chơi Fifa","Học giặt đồ","Học rửa chén","Viết sách","Chat thành người thành công","Mua đồ <1tr","Bóng bàn","Bi lắc","Phi tiêu"];
 
     // --- DATA STORE ---
-    let data = JSON.parse(localStorage.getItem('shadowV_Pure')) || {
+    // QUAN TRỌNG: Đã đổi tên khóa lưu trữ thành 'shadowV_New_Era' để không bị trùng với code cũ
+    let data = JSON.parse(localStorage.getItem('shadowV_New_Era')) || {
         day: 1, water: 0, milk: 0, supp: 0, tasks: {}, gymDone: false, 
         lastDate: new Date().toDateString(),
         rewardClaimed: false, history: [],
@@ -367,6 +368,7 @@
     }
     function triggerReward() {
         data.rewardClaimed = true; let n = ""; let h = "";
+        // LOGIC CHECK PHẦN THƯỞNG Ở ĐÂY
         if(milestones[data.day]) { n = milestones[data.day]; h = `<div style="color:#aaa;">MỐC QUAN TRỌNG</div><div class="milestone-text">${n}</div>`; }
         else { n = dailyPool[Math.floor(Math.random() * dailyPool.length)]; h = `<div style="color:#aaa;">PHẦN THƯỞNG NGẪU NHIÊN</div><div class="daily-text">🎁 ${n}</div>`; }
         data.history.push({ day: data.day, item: n, date: getEffectiveDate().toLocaleDateString('vi-VN') });
@@ -379,7 +381,7 @@
         else [...data.history].reverse().forEach(h => l.innerHTML += `<div class="history-item"><div><div class="history-day">NGÀY ${h.day}</div><div style="font-size:0.7rem;color:#666">${h.date}</div></div><div class="history-reward">${h.item}</div></div>`);
         document.getElementById('history-modal').style.display = 'block';
     }
-    function save() { localStorage.setItem('shadowV_Pure', JSON.stringify(data)); renderUI(); }
+    function save() { localStorage.setItem('shadowV_New_Era', JSON.stringify(data)); renderUI(); }
     if('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js');
     init(); document.querySelectorAll('.gym-check').forEach(e => e.checked = false);
 </script>
